@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Eczar:wght@400..800&family=Fredoka:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poetsen+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
+
+/* :root {
+ --primary-font:"Inter", sans-serif;
+ --secondary-font: "Roboto", sans-serif;
+
+ --primary-color:rgb(1, 24, 216);
+ --secondary-color:rgb(27, 86, 253);
+ --info-color:rgb(255, 248, 248);
+} */
+
+
+
+/* rgb(247, 44, 91) */
+
+@theme {
+  --color-primary: rgb(1, 24, 216);
+  --color-secondary: rgb(27, 86, 253);
+  --color-info: rgb(255, 248, 248);
+  ---color-error: rgb(255, 0, 0);
+  --color-dark: rgb(7, 15, 43);
+  --color-text-black:#000000;
+  --color-text-white:#ffffff;
+  --color-foreground:rgb(21, 21, 21);
+  --color-background:rgb(255, 255, 255);
+  --font-primary: "Inter", "sans-serif";
+  --font-secondary: 'Roboto', 'sans-serif';
+}
+
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  color: var(--color-text-black);
+}
+
+
+
+button:hover {
+   cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+@media (prefers-color-scheme: dark) {
+ body{
+   background-color: var(--color-foreground);
+   color: var(--color-text-white);
+ }
+}
