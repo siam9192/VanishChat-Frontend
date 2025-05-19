@@ -15,7 +15,7 @@ function MessageBubble() {
         </div>
       </div>
       <div className="p-5 bg-primary mt-3 ml-10 size-fit max-w-[200px] md:max-w-[300px] rounded-lg  relative ">
-         <p className=" text-sm md:text-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, officiis.</p>
+         <p className=" text-sm md:text-[1rem]  text-white ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, officiis.</p>
         <div className="absolute w-0 h-0  -left-5 -top-5  border-r-transparent border-l-transparent  border-r-[25px] border-l-[25px]  border-b-[50px]  border-b-primary rotate-[-40deg] -z-1"></div>
       </div>
     </div>

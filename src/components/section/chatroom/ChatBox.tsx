@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MessageBox from '../../ui/MessageBox';
 import MessageBubble from '../../ui/MessageBubble';
 import OwnMessageBubble from '../../ui/OwnMessageBubble';
 import ChatBoxHeader from '../../ui/ChatBoxHeader';
 
 function ChatBox() {
+  const [width,setWidth] = useState(0);
+
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(()=>{
+    const current =  ref.current
+   if(!current ) return
+   setWidth(current.clientWidth)
+   
+  const handler = ()=>{
+      const current =  ref.current
+   if(!current ) return
+   setWidth(current.clientWidth)
+  } 
+
+  window.addEventListener('resize',handler)
+  return ()=>{
+    window.removeEventListener('resize',handler)
+  }
+  },[])
+
   return (
-    <div className="h-full relative ">
+    <div ref={ref} className="h-screen overflow-y-auto relative  hide-scrollbar ">
         <ChatBoxHeader/>
-      <div className="px-5 ">
+      <div className="px-5 flex flex-col-reverse pb-40">
         {Array.from({ length: 50 }).map((_, index) => {
           const isOwn = index % 2 === 0;
           if (isOwn) return <OwnMessageBubble key={index} />;
@@ -16,7 +37,7 @@ function ChatBox() {
         })}
       </div>
       {/* Message box container */}
-      <div className="sticky  top-[100vh]  left-0 w-full">
+      <div style={{width:`${width}px`}} className="fixed    left-0 bottom-0 w-full bg-secondary">
         <MessageBox />
       </div>
     </div>

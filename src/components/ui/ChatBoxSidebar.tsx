@@ -17,7 +17,7 @@ function ChatBoxSidebar() {
         </div>
         <div className="mt-10">
           <h3 className="text-lg font-medium">Members(20)</h3>
-          <div className="mt-4 grid grid-cols-4 gap-3">
+          <div className="mt-4 grid grid-cols-3 lg:grid-cols-4 gap-3">
             {Array.from({ length: 10 }).map((_, index) => (
               <div className="">
                 <img
@@ -28,7 +28,7 @@ function ChatBoxSidebar() {
                 <div className="mt-2">
                   <p className="text-center">Member {index + 1} </p>
                   <div className=" mt-1 text-center font-medium font-secondary">
-                    <button className="text-red-500">Kickout</button>
+                    <button className="text-red-500 text-sm">Kickout</button>
                   </div>
                 </div>
               </div>

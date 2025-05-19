@@ -7,7 +7,7 @@ function ChatRoom() {
       <div className="col-span-6">
         <ChatBox />
       </div>
-      <div className="col-span-2 overflow-y-auto p-5 hide-scrollbar border-l-2 border-gray-800 lg:block hidden">
+      <div className="col-span-2 overflow-y-auto p-5 hide-scrollbar border-l-2 border-gray-700/20 dark:border-gray-800 lg:block hidden">
      <ChatBoxSidebar/>
       </div>
     </div>
