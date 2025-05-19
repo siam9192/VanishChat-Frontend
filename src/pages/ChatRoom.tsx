@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Container from '../components/container/Container';
+import { AiOutlineUser } from 'react-icons/ai';
+import JoinRequestLoadingModal from '../components/ui/JoinRequestLoadingModal';
 
 function ChatRoom() {
-  return (
-    <div>ChatRoom</div>
-  )
+  return <div></div>;
 }
 
-export default ChatRoom
+export default ChatRoom;
