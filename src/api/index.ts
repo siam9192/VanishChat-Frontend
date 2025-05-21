@@ -1,13 +1,16 @@
 import envConfig from '../envConfig';
+import Cookie from 'js-cookie';
 
-async function post(endPoint: string) {
+async function GET(endPoint: string) {
   try {
+    const token = Cookie.get('accessToken');
+
     const res = await fetch(`${envConfig.serverBaseUrl}/${endPoint}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         // Add authorization header if needed
-        // 'Authorization': `Bearer ${yourToken}`
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -18,17 +21,21 @@ async function post(endPoint: string) {
 
     const data = await res.json(); // parse response JSON
     return data;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function POST(endPoint: string, body: Record<string, unknown>) {
   try {
+    const token = Cookie.get('accessToken');
+
     const res = await fetch(`${envConfig.serverBaseUrl}/${endPoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         // Add authorization header if needed
-        // 'Authorization': `Bearer ${yourToken}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
@@ -48,12 +55,14 @@ async function POST(endPoint: string, body: Record<string, unknown>) {
 
 async function PATCH(endPoint: string, body: Record<string, unknown>) {
   try {
+    const token = Cookie.get('accessToken');
+
     const res = await fetch(`${envConfig.serverBaseUrl}/${endPoint}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         // Add authorization header if needed
-        // 'Authorization': `Bearer ${yourToken}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
@@ -73,12 +82,13 @@ async function PATCH(endPoint: string, body: Record<string, unknown>) {
 
 async function DELETE(endPoint: string) {
   try {
+    const token = Cookie.get('accessToken');
     const res = await fetch(`${envConfig.serverBaseUrl}/${endPoint}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         // Add authorization header if needed
-        // 'Authorization': `Bearer ${yourToken}`
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -96,6 +106,7 @@ async function DELETE(endPoint: string) {
 }
 
 export default {
+  GET,
   POST,
   PATCH,
   DELETE,

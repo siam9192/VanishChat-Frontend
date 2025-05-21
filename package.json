@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",
+    "js-cookie": "^3.0.5",
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -19,10 +20,12 @@
     "react-router": "^7.6.0",
     "react-toastify": "^11.0.5",
     "socket.io-client": "^4.8.1",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.7",
+    "zod": "^3.25.16"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
