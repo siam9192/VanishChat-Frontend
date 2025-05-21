@@ -5,6 +5,8 @@ import Logo from './Logo';
 import { getAvatars, getRoomPhotos } from '../../services';
 import type { IAvatar, IRoomPhoto } from '../../types';
 import z from 'zod';
+import api from '../../api';
+import { useNavigate } from 'react-router';
 
 interface IProps {
   children: ReactNode;
@@ -25,6 +27,9 @@ function CreateChatModal(props: IProps) {
   const [userName, setUserName] = useState('');
   const [roomName, setRoomName] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAvatars().then((data) => {
@@ -57,6 +62,33 @@ function CreateChatModal(props: IProps) {
 
   const isValid = validate();
 
+  async function createRoom() {
+    try {
+      const user: Record<string, unknown> = {
+        isAnonymous,
+        avatarId: avatars[choosedAvatar].id,
+      };
+
+      if (!isAnonymous) {
+        user.name = userName;
+      }
+      const payload = {
+        name: roomName,
+        photoId: roomPhotos[choosedRoomPhoto].id,
+        user,
+      };
+
+      const result = await api.POST('rooms', payload);
+      if (result.success) {
+        const code = result.data.code;
+        navigate(`/${code}`);
+      } else {
+        throw new Error('Something went went wrong!');
+      }
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    }
+  }
   return (
     <>
       {/* Open Button */}
@@ -193,6 +225,7 @@ function CreateChatModal(props: IProps) {
             </button>
             <button
               disabled={!isValid}
+              onClick={createRoom}
               className="px-6 py-3 bg-secondary hover:bg-primary disabled:bg-gray-600  font-secondary  text-white rounded-full"
             >
               Create Room

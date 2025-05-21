@@ -4,12 +4,16 @@ import MessageBubble from '../../ui/MessageBubble';
 import OwnMessageBubble from '../../ui/OwnMessageBubble';
 import ChatBoxHeader from '../../ui/ChatBoxHeader';
 import { Bounce, toast } from 'react-toastify';
+import type { IMessage } from '../../../types';
+import api from '../../../api';
+import { useParams } from 'react-router';
 
 function ChatBox() {
   const [width, setWidth] = useState(0);
-
+  const {roomCode} = useParams()
   const ref = useRef<HTMLDivElement>(null);
-
+  const [messages,setMessages] = useState<IMessage[]>([])
+  const [isLoading,setIsLoading] =  useState(true)
   useEffect(() => {
     const current = ref.current;
     if (!current) return;
@@ -27,6 +31,14 @@ function ChatBox() {
     };
   }, []);
 
+  useEffect(()=>{
+    api.GET(`messages/${roomCode}/room`).then(res=>{
+      setMessages(res.data)
+      setIsLoading(false)
+    })
+    .catch(()=>setIsLoading(false))
+  },[])
+
   function showJoinRequestAlert() {
     toast.info('🦄 Md hasan sent join request!', {
       position: 'bottom-right',
@@ -40,6 +52,7 @@ function ChatBox() {
       transition: Bounce,
     });
   }
+  if(isLoading) return <p>Loading...</p>
 
   return (
     <div ref={ref} className="h-screen overflow-y-auto relative  hide-scrollbar ">
