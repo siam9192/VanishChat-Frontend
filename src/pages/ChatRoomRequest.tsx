@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Container from '../components/container/Container';
 import { AiOutlineUser } from 'react-icons/ai';
 import JoinRequestLoadingModal from '../components/ui/JoinRequestLoadingModal';
 import { useNavigate, useParams } from 'react-router';
 import type { IAvatar, IRoom } from '../types';
 import api from '../api';
-import { RiSafariFill } from 'react-icons/ri';
 import { getAvatars } from '../services';
+import { SocketContext } from '../provider/SocketProvider';
+interface IProps {
+  setAccess: (st: boolean) => void | any;
+}
+function ChatRoomRequest({ setAccess }: IProps) {
+  const socket = useContext(SocketContext);
 
-function ChatRoomRequest() {
   const [userName, setUserName] = useState('');
   const [avatars, setAvatars] = useState<IAvatar[]>([]);
   const [viewAllAvatar, setViewAllAvatar] = useState(false);
@@ -18,7 +22,8 @@ function ChatRoomRequest() {
   const { roomCode } = useParams();
   const [room, setRoom] = useState<IRoom | null>(null);
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const navigate =  useNavigate()
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
     setIsLoading(true);
     api.GET(`rooms/public/${roomCode}`).then((res) => {
@@ -33,7 +38,28 @@ function ChatRoomRequest() {
     });
   }, []);
 
-  const isValid = !isAnonymous ? userName.length > 0 && userName.length <= 20 : false;
+  useEffect(() => {
+    if (!socket) return;
+    socket.on('join-request-response', (res: { status: boolean }) => {
+      setAccess(res.status);
+      setIsWaiting(false);
+    });
+  }, [socket]);
+
+  function requestJoin() {
+    const user: Record<string, unknown> = {
+      isAnonymous,
+      avatarId: avatars[choosedAvatar].id,
+    };
+
+    if (!isAnonymous) {
+      user.name = userName;
+    }
+
+    socket?.emit('join-request', { code: roomCode, ...user });
+    setIsWaiting(true);
+  }
+  const isValid = !isAnonymous ? userName.length > 0 && userName.length <= 20 : true;
 
   if (isLoading) return <p>Loading..</p>;
   return (
@@ -95,9 +121,12 @@ function ChatRoomRequest() {
           </div>
         </div>
         <div className="mt-20 space-x-4 text-end">
-          <button onClick={()=>navigate('/')} className="px-6 py-3 bg-red-500 rounded-full">Go Back</button>
+          <button onClick={() => navigate('/')} className="px-6 py-3 bg-red-500 rounded-full">
+            Go Back
+          </button>
           <button
             disabled={!isValid}
+            onClick={requestJoin}
             className="px-6 py-3 bg-primary disabled:bg-gray-700 rounded-full"
           >
             Join Request

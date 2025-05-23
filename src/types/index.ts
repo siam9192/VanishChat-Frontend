@@ -26,7 +26,7 @@ export interface IRoom {
   status: ERoomStatus;
   createdAt: Date;
   updatedAt: Date;
-  isOwner?:boolean
+  isOwner?: boolean;
 }
 
 export interface IRoomMember {
@@ -54,6 +54,7 @@ export interface IMessage {
   contentType: EMessageContentType;
   createdAt: Date;
   updatedAt: Date;
+  isOwn:boolean
 }
 
 export interface IRoomJoinRequest {
@@ -61,9 +62,9 @@ export interface IRoomJoinRequest {
   userId: string;
   roomId: number;
   room: IRoom;
-  name?:string
-  isAnonymous:boolean
-  avatar:IAvatar
+  name?: string;
+  isAnonymous: boolean;
+  avatar: IAvatar;
   status: ERoomJoinRequestStatus;
   createdAt: Date;
   updatedAt: Date;

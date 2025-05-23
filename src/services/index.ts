@@ -19,18 +19,16 @@ export async function getRoomPhotos() {
   }
 }
 
-
-
-export async function getRoomByCode(code:string) {
+export async function getRoomByCode(code: string) {
+  console.log(33333)
   try {
-  const res =  await api.GET(`rooms/${code}`)
-  if(!res.success){
-    throw new Error()
-  }
-  return res.data
+    const res = await api.GET(`rooms/${code}`);
+
+    if (!res.success) {
+      throw new Error();
+    }
+    return res.data;
   } catch (error) {
-   throw Error("something went wrong")
+    throw Error('something went wrong');
   }
 }
-
-

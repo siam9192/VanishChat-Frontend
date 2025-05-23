@@ -3,10 +3,26 @@ import { RxKeyboard } from 'react-icons/rx';
 import Container from '../components/container/Container';
 import { useState } from 'react';
 import CreateChatModal from '../components/ui/CreateChatModal';
+import api from '../api';
+import { useNavigate } from 'react-router';
 
 function Home() {
   const [code, setCode] = useState('');
-
+  const [error,setError] =  useState('')
+  const navigate = useNavigate()
+  const findRoom =  async()=>{
+     if(!code) return
+      setError('')
+     const data = await api.GET(`rooms/public/${code}`)
+     if(!data.data){
+      setError("Room not found")
+     }
+  
+     else {
+navigate(`/${code}`)
+     }
+  
+  }
   return (
     <Container addedClass="h-full flex justify-center items-center">
       <div className="text-center w-full lg:w-1/2">
@@ -44,10 +60,13 @@ function Home() {
               placeholder="Enter room code.."
             />
           </div>
-          <button disabled={!code} className="font-bold text-secondary disabled:text-gray-700 ">
+          <button disabled={code.length !== 12} onClick={findRoom} className="font-bold text-secondary disabled:text-gray-700 ">
             Join now
           </button>
         </div>
+        {
+        error && <p className='mt-1 text-red-600'>{error}</p>
+        }
       </div>
     </Container>
   );
