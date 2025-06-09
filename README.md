@@ -1,54 +1,65 @@
-# React + TypeScript + Vite
+# 🕵️‍♂️ Vanish Chat 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Vanish Chat** is a real-time, room-based chat web app designed for quick and private conversations. Users can create or join chat rooms using unique room codes—no authentication required. All messages exist only during the life of the room and automatically vanish once the room is closed, ensuring nothing is stored or saved.
 
-Currently, two official plugins are available:
+It's ideal for temporary group discussions, spontaneous team collaboration, or secure, short-lived chats where privacy and simplicity are key.
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 💬 **Real-time Room-Based Chat:** Instant messaging in dynamically created chat rooms.
+- 🔓 **No Authentication Required:** Join or create rooms without needing to sign up or log in.
+- 🔒 **Secure Room Access via Code:** Users can join rooms using a unique room code.
+- 👑 **Room Owner Controls:**
+  - Approve or decline join requests
+  - Remove members from the group
+  - Close the room at any time
+- 👯‍♂️ **Member Flexibility:** Group members can leave the room anytime.
+- 🧨 **Auto-Vanishing Messages:** Messages automatically disappear after a few seconds.
+- 🔐 **No Message Storage:** Messages are not saved on the server after they vanish.
+- 🧑‍🤝‍🧑 **Multiple Rooms Support:** Users can join or create multiple rooms.
+- 🖥️ **Responsive & Clean UI:** Optimized for desktop and mobile — continuously improving!
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 🧰 Tech Stack
+
+- **Frontend**: React Js
+- **Backend**: Node.js, Express
+- **Database**: PostgreSQL
+- **Realtime**: Socket.IO
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Steps
+
+```bash
+git clone https://github.com/yourusername/vanish-chat.git
+cd vanish-chat
+npm install
+npm  run dev
 ```
+Once the command runs successfully, backend server should be up and running (typically on http://localhost:5000 or whichever port is set in .env).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Backend Code  
+https://github.com/siam9192/VanishChat-Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📸 Screenshots
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 🏠 Home Page
+![Home Page](https://i.ibb.co/jvYVHWQb/Screenshot-2025-06-09-193848.png)
+
+### 📝 Room Create 
+![Room Create](https://i.ibb.co/fVMphBRY/Screenshot-2025-06-09-191526.png)
+
+### 🏁 Chat Box
+![Chatbox Page](https://i.ibb.co/Y4yGM4M1/Screenshot-2025-06-09-191625.png)
+
